@@ -40,7 +40,7 @@ class SearchProductPage extends StatelessWidget {
                   child: IconButton(
                     icon: Icon(Icons.filter_list, color: Colors.white), // White icon
                     onPressed: () {
-                      // Add filter logic here
+                      // will filter logic here
                     },
                   ),
                 ),
@@ -51,14 +51,14 @@ class SearchProductPage extends StatelessWidget {
             Column(
               children: [
                 ProductCard(
-                  imageUrl: 'images/leatherShoe.jpg', // Replace with your image URL
+                  imageUrl: 'images/leatherShoe.jpg', 
                   title: "Derby Leather Shoes",
                   category: "Men's shoe",
                   price: "\$120",
                   rating: "4.0",
                 ),
                 ProductCard(
-                  imageUrl: 'images/leatherShoe.jpg', // Replace with your image URL
+                  imageUrl: 'images/leatherShoe.jpg', 
                   title: '', // Empty title
                   category: '', // Empty category
                   price: '', // Empty price
@@ -85,14 +85,14 @@ class SearchProductPage extends StatelessWidget {
               divisions: 100,
               label: "50",
               onChanged: (value) {
-                // Add price slider logic here
+                // will slider logic here
               },
             ),
             SizedBox(height: 16),
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Add apply filter logic here
+                  // will filter logic here
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 79, 43, 240),
@@ -143,7 +143,7 @@ class ProductCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               child: Image.network(
                 imageUrl,
-                height: 150,  // Adjust the height to your needs
+                height: 150,  
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),

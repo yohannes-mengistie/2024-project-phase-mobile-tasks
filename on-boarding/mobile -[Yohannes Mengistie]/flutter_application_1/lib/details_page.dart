@@ -23,7 +23,7 @@ class ProductDetailPage extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: 40, // Positioning the back button within the image
+                  top: 40, 
                   left: 16,
                   child: Container(
                     decoration: BoxDecoration(
@@ -110,7 +110,7 @@ class ProductDetailPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: SizedBox(
-                          height: 48, // Adjust the height as needed
+                          height: 48, 
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: [
@@ -131,7 +131,7 @@ class ProductDetailPage extends StatelessWidget {
                                         41, // Assume size 41 is selected
                                     selectedColor: const Color.fromARGB(255, 79, 43, 240), // Background color when selected
                                     onSelected: (bool selected) {
-                                      // Add logic if you want to handle chip selection
+                                      // it will have some logic
                                     },
                                   ),
                                 ),
@@ -155,7 +155,7 @@ class ProductDetailPage extends StatelessWidget {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          // Add your delete logic here
+                          // will be delete logic here
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
@@ -174,7 +174,7 @@ class ProductDetailPage extends StatelessWidget {
                       SizedBox(width: 16,),
                       ElevatedButton(
                         onPressed: () {
-                          // Add your update logic here
+                          // will be update logic here
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(255, 79, 43, 240),

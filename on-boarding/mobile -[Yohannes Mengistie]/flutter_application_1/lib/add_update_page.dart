@@ -20,7 +20,7 @@ class AddProductPage extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                // Add your image picker code here
+                // will image picker code here
               },
               child: Container(
                 height: 150,
@@ -97,7 +97,7 @@ class AddProductPage extends StatelessWidget {
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                // Add your add product logic here
+                // will have add product logic here
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 79, 43, 240),
@@ -119,7 +119,7 @@ class AddProductPage extends StatelessWidget {
               ),
               child: TextButton(
                 onPressed: () {
-                  // Add your delete logic here
+                  // will have delete logic here
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.white,
