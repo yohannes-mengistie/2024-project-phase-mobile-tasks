@@ -1,29 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/model/product_model';
 
 class SearchProductPage extends StatelessWidget {
+ 
+  SearchProductPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search Product'),
+        title: Center(child: Text('Search Product')),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: const Color.fromARGB(255, 9, 134, 236)),
+          icon: Icon(Icons.arrow_back,
+              color: const Color.fromARGB(255, 9, 134, 236)),
           onPressed: () {
             Navigator.of(context).pop();
+
           },
         ),
       ),
-      body: SingleChildScrollView( // Wrap the content with SingleChildScrollView
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Search and filter
             Row(
               children: [
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.arrow_forward, color: const Color.fromARGB(255, 11, 136, 238)),
+                      suffixIcon: Icon(Icons.arrow_forward,
+                          color: const Color.fromARGB(255, 11, 136, 238)),
                       hintText: "Leather",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -34,11 +41,13 @@ class SearchProductPage extends StatelessWidget {
                 SizedBox(width: 8),
                 Container(
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 79, 43, 245), // Set background color to blue
+                    color: const Color.fromARGB(
+                        255, 79, 43, 245), 
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: IconButton(
-                    icon: Icon(Icons.filter_list, color: Colors.white), // White icon
+                    icon: Icon(Icons.filter_list,
+                        color: Colors.white), // White icon
                     onPressed: () {
                       // will filter logic here
                     },
@@ -47,18 +56,18 @@ class SearchProductPage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16),
-            // Directly placing the products inside a Column
+            // Product cards
             Column(
               children: [
                 ProductCard(
-                  imageUrl: 'images/leatherShoe.jpg', 
-                  title: "Derby Leather Shoes",
-                  category: "Men's shoe",
-                  price: "\$120",
+                  imageUrl: 'images/leatherShoe.jpg',
+                  title: 'derbaye shose',
+                  category: "men's shoe",
+                  price: "\$ 120",
                   rating: "4.0",
                 ),
                 ProductCard(
-                  imageUrl: 'images/leatherShoe.jpg', 
+                  imageUrl: 'images/leatherShoe.jpg',
                   title: '', // Empty title
                   category: '', // Empty category
                   price: '', // Empty price
@@ -67,7 +76,9 @@ class SearchProductPage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16),
-            Text('Category', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            // Category filter
+            Text('Category',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             TextField(
               decoration: InputDecoration(
                 labelText: '',
@@ -77,7 +88,9 @@ class SearchProductPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-            Text("Price:", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            // Price filter
+            Text("Price:",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             Slider(
               value: 50,
               min: 0,
@@ -89,6 +102,7 @@ class SearchProductPage extends StatelessWidget {
               },
             ),
             SizedBox(height: 16),
+            // Apply button
             Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -143,52 +157,54 @@ class ProductCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               child: Image.network(
                 imageUrl,
-                height: 150,  
+                height: 150,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
             ),
-            if (title != null && title!.isNotEmpty) ...[
-              SizedBox(height: 16),
-              Text(
-                title!,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-            if (category != null && category!.isNotEmpty) ...[
-              SizedBox(height: 4),
-              Text(
-                category!,
-                style: TextStyle(color: Colors.grey),
-              ),
-            ],
-            if (price != null && price!.isNotEmpty) ...[
-              SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+            SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                if (category != null && category!.isNotEmpty)
+                  Text(
+                    category!,
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                if (price != null && price!.isNotEmpty)
                   Text(
                     price!,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  if (rating != null && rating!.isNotEmpty) ...[
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                          size: 16,
-                        ),
-                        Text(rating!),
-                      ],
+              ],
+            ),
+            SizedBox(height: 4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                if (title != null && title!.isNotEmpty)
+                  Expanded(
+                    child: Text(
+                      title!,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ],
-                ],
-              ),
-            ],
+                  ),
+                if (rating != null && rating!.isNotEmpty)
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: Colors.yellow,
+                        size: 16,
+                      ),
+                      Text(rating!),
+                    ],
+                  ),
+              ],
+            ),
           ],
         ),
       ),

@@ -1,0 +1,22 @@
+class Product {
+  String name;
+  String category;
+  double price;
+  String description;
+  String image = 'images/leatherShoe.jpg';
+  int id;
+  
+  Product({required this.name,
+      required this.category,
+      required this.price,
+      required this.description,
+      required this.image,
+      required this.id}
+      );
+}
+
+List<Product> data = [
+  Product(name:'nike',category:'men shoe',price:123,description:'flat',image:'images/leatherShoe.jpg',id:0),
+  ];
+
+

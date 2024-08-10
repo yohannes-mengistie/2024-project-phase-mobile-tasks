@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/model/product_model';
 
 class ProductDetailPage extends StatelessWidget {
+  Product product;
+  ProductDetailPage({super.key, required this.product});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,25 +20,25 @@ class ProductDetailPage extends StatelessWidget {
                     bottomRight: Radius.circular(16),
                   ),
                   child: Image.network(
-                    'images/leatherShoe.jpg', // Replace with your image URL
+                    product.image,
                     height: 300,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
                 ),
                 Positioned(
-                  top: 40, 
+                  top: 40,
                   left: 16,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white, // White background
-                      shape: BoxShape.circle, // Circular shape
+                      color: Colors.white,
+                      shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.2),
                           spreadRadius: 1,
                           blurRadius: 5,
-                          offset: Offset(0, 3), // Shadow position
+                          offset: Offset(0, 3),
                         ),
                       ],
                     ),
@@ -59,7 +63,7 @@ class ProductDetailPage extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "Men's shoe",
+                        product.category,
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 16,
@@ -81,7 +85,7 @@ class ProductDetailPage extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "Derby Leather",
+                        product.name,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 24,
@@ -89,7 +93,7 @@ class ProductDetailPage extends StatelessWidget {
                       ),
                       Spacer(),
                       Text(
-                        "\$120",
+                        "\$" + product.price.toString(),
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -110,7 +114,7 @@ class ProductDetailPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: SizedBox(
-                          height: 48, 
+                          height: 48,
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: [
@@ -129,7 +133,11 @@ class ProductDetailPage extends StatelessWidget {
                                     ),
                                     selected: size ==
                                         41, // Assume size 41 is selected
-                                    selectedColor: const Color.fromARGB(255, 79, 43, 240), // Background color when selected
+                                    selectedColor: const Color.fromARGB(
+                                        255,
+                                        79,
+                                        43,
+                                        240), // Background color when selected
                                     onSelected: (bool selected) {
                                       // it will have some logic
                                     },
@@ -143,7 +151,7 @@ class ProductDetailPage extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'A derby leather shoe is a classic and versatile footwear option characterized by its open lacing system, where the shoelace eyelets are sewn on top of the vamp (the upper part of the shoe). This design feature provides a more relaxed and casual look compared to the closed lacing system of oxford shoes. Derby shoes are typically made of high-quality leather, known for its durability and elegance, making them suitable for both formal and casual occasions. With their timeless style and comfortable fit, derby leather shoes are a staple in any well-rounded wardrobe.',
+                    product.description,
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey[800],
@@ -171,13 +179,16 @@ class ProductDetailPage extends StatelessWidget {
                           style: TextStyle(color: Colors.red, fontSize: 16),
                         ),
                       ),
-                      SizedBox(width: 16,),
+                      SizedBox(
+                        width: 16,
+                      ),
                       ElevatedButton(
                         onPressed: () {
                           // will be update logic here
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 79, 43, 240),
+                          backgroundColor:
+                              const Color.fromARGB(255, 79, 43, 240),
                           padding: EdgeInsets.symmetric(
                               vertical: 16, horizontal: 32),
                           shape: RoundedRectangleBorder(

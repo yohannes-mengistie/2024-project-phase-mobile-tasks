@@ -1,6 +1,52 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '/pages/home.dart';
 
-class AddProductPage extends StatelessWidget {
+import '/model/product_model';
+
+class AddProductPage extends StatefulWidget {
+  const AddProductPage({super.key});
+
+  @override
+  State<AddProductPage> createState() => _AddUpdateState();
+}
+
+class _AddUpdateState extends State<AddProductPage> {
+  final _nameController = TextEditingController();
+  final _categoryController = TextEditingController();
+  final _priceController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _imageController = TextEditingController();
+
+  void _saveProduct() {
+    final name = _nameController.text.trim();
+    final catagory = _categoryController.text.trim();
+    final price = double.tryParse(_priceController.text.trim());
+    final description = _descriptionController.text.trim();
+    final image = 'images/leatherShoe.jpg';
+    if (name.isNotEmpty &&
+        catagory.isNotEmpty &&
+        price != null &&
+        description.isNotEmpty) {
+      final newProduct = Product(
+        name: name,
+        category: catagory,
+        price: price,
+        description: description,
+        image: image,
+        id: 1,
+      );
+
+      Navigator.of(context).pop(newProduct);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill in all the required fields.'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +62,8 @@ class AddProductPage extends StatelessWidget {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, // Align children to the start (left)
+          crossAxisAlignment:
+              CrossAxisAlignment.start, // Align children to the start (left)
           children: [
             GestureDetector(
               onTap: () {
@@ -48,6 +95,7 @@ class AddProductPage extends StatelessWidget {
             SizedBox(height: 16),
             Text("Name", style: TextStyle(fontSize: 16)),
             TextField(
+              controller: _nameController,
               decoration: InputDecoration(
                 labelText: '',
                 border: OutlineInputBorder(
@@ -58,6 +106,7 @@ class AddProductPage extends StatelessWidget {
             SizedBox(height: 16),
             Text("Category", style: TextStyle(fontSize: 16)),
             TextField(
+              controller: _categoryController,
               decoration: InputDecoration(
                 labelText: '',
                 border: OutlineInputBorder(
@@ -68,6 +117,7 @@ class AddProductPage extends StatelessWidget {
             SizedBox(height: 16),
             Text("Price", style: TextStyle(fontSize: 16)),
             TextField(
+              controller: _priceController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: '',
@@ -86,6 +136,7 @@ class AddProductPage extends StatelessWidget {
             SizedBox(height: 16),
             Text("Description", style: TextStyle(fontSize: 16)),
             TextField(
+              controller: _descriptionController,
               maxLines: 4,
               decoration: InputDecoration(
                 labelText: '',
@@ -96,9 +147,7 @@ class AddProductPage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                // will have add product logic here
-              },
+              onPressed: _saveProduct,
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 79, 43, 240),
                 padding: EdgeInsets.symmetric(vertical: 16, horizontal: 215),
@@ -118,9 +167,7 @@ class AddProductPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: TextButton(
-                onPressed: () {
-                  // will have delete logic here
-                },
+                onPressed: _saveProduct,
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.white,
                   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 200),

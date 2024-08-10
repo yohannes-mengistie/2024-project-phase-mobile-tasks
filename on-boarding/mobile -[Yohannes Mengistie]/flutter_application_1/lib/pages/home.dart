@@ -1,8 +1,39 @@
 import 'package:flutter/material.dart';
+import '/pages/add.dart';
+import '/pages/search.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+import '../model/product_model';
 
+class HomePage extends StatefulWidget {
+  //final detail;
+  HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  void _deleteProduct(index) {
+    data.removeAt(index);
+  }
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+
+  //   super.initState();
+  //   if(widget.detail) {
+
+  //   }
+  // }
+
+  // {
+//   "opp_type":"add/edit/delte",
+// "id":"1/2/3"
+// "paylaod":""/object / null
+  //  }
+  //
+  //
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +67,10 @@ class HomePage extends StatelessWidget {
                   ),
                   TextSpan(
                     text: "Yohannes",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
                   ),
                 ],
               ),
@@ -60,7 +94,8 @@ class HomePage extends StatelessWidget {
                       print("Notification Button");
                     },
                     icon: const Icon(
-                      Icons.notifications,color: Color.fromARGB(221, 94, 92, 92),
+                      Icons.notifications,
+                      color: Color.fromARGB(221, 94, 92, 92),
                     ),
                   ),
                 ),
@@ -101,7 +136,7 @@ class HomePage extends StatelessWidget {
                   child: IconButton(
                     icon: Icon(Icons.search, color: Colors.grey),
                     onPressed: () {
-                      print("Search Button");
+                      Navigator.pushNamed(context, '/search', arguments: data);
                     },
                   ),
                 ),
@@ -110,9 +145,10 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 16),
             Expanded(
               child: ListView.builder(
-                itemCount: 3,
+                itemCount: data.length,
                 itemBuilder: (context, index) {
-                  return ProductCard();
+                  final item = data[index];
+                  return ProductCard(data: item);
                 },
               ),
             ),
@@ -120,8 +156,22 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.add , color: Colors.white,),
+        onPressed: () async {
+          final coming_data = await Navigator.pushNamed(
+            context,
+            '/update',
+            arguments: data,
+          ) as Product;
+          if (coming_data != null) {
+            setState(() {
+              data.add(coming_data);
+            });
+          }
+        },
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
         backgroundColor: Color.fromARGB(255, 79, 43, 240),
       ),
     );
@@ -129,23 +179,35 @@ class HomePage extends StatelessWidget {
 }
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  final Product data;
+
+  ProductCard({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
+    String reserve;
     return Card(
       margin: EdgeInsets.symmetric(vertical: 8.0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-            child: Image.network(
-              'images/leatherShoe.jpg',
-              width: double.infinity,
-              height: 450,
-              fit: BoxFit.cover,
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                '/detail',
+                arguments: data,
+              );
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+              child: Image.network(
+                data.image,
+                width: double.infinity,
+                height: 450,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Padding(
@@ -157,11 +219,12 @@ class ProductCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Derby Leather Shoes",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      data.name,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "\$120",
+                      reserve = "\$" + data.price.toString(),
                       style: TextStyle(fontSize: 18, color: Colors.black),
                     ),
                   ],
@@ -171,7 +234,7 @@ class ProductCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Men\'s shoe",
+                      data.category,
                       style: TextStyle(fontSize: 14, color: Colors.grey),
                     ),
                     Row(
