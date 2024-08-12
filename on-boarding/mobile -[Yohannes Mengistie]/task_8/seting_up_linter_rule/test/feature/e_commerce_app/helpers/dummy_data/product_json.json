@@ -1,0 +1,8 @@
+{
+    "name": "Nike Shoe",
+    "category": "Men",
+    "description": "Confortable Running Shoes",
+    "price": 120.0,
+    "id": 1,
+    "imageUrl": "image"
+}

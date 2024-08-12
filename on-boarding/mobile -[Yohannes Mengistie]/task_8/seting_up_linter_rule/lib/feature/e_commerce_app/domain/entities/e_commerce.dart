@@ -6,7 +6,7 @@ class Product extends Equatable {
   final String name;
   final String category;
   final String description;
-  final int price;
+  final double price;
   final int id;
   final String imageUrl;
 
