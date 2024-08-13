@@ -3,7 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:seting_up_linter_rule/core/error/exceptions.dart';
 import 'package:seting_up_linter_rule/core/error/fialures.dart';
-import 'package:seting_up_linter_rule/core/error/platform/network_info.dart';
+import 'package:seting_up_linter_rule/core/error/network/network_info.dart';
 import 'package:seting_up_linter_rule/feature/e_commerce_app/data/data_sources/product_local_data_source.dart';
 import 'package:seting_up_linter_rule/feature/e_commerce_app/data/data_sources/product_remote_data_source.dart';
 import 'package:seting_up_linter_rule/feature/e_commerce_app/data/repositories/product_repository_impl.dart';
