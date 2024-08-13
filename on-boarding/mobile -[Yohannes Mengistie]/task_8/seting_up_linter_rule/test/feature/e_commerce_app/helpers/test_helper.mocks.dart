@@ -3,15 +3,21 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:seting_up_linter_rule/core/error/fialures.dart' as _i5;
+import 'package:seting_up_linter_rule/core/error/fialures.dart' as _i6;
+import 'package:seting_up_linter_rule/core/error/platForm/network_info.dart'
+    as _i9;
+import 'package:seting_up_linter_rule/feature/e_commerce_app/data/data_sources/product_local_data_source.dart'
+    as _i8;
+import 'package:seting_up_linter_rule/feature/e_commerce_app/data/data_sources/product_remote_data_source.dart'
+    as _i7;
 import 'package:seting_up_linter_rule/feature/e_commerce_app/domain/entities/e_commerce.dart'
-    as _i6;
-import 'package:seting_up_linter_rule/feature/e_commerce_app/domain/repository/e_commerce_repository.dart'
     as _i3;
+import 'package:seting_up_linter_rule/feature/e_commerce_app/domain/repository/e_commerce_repository.dart'
+    as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -36,82 +42,291 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
+class _FakeProduct_1 extends _i1.SmartFake implements _i3.Product {
+  _FakeProduct_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeUnit_2 extends _i1.SmartFake implements _i2.Unit {
+  _FakeUnit_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [ECommerceRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockECommerceRepository extends _i1.Mock
-    implements _i3.ECommerceRepository {
+    implements _i4.ECommerceRepository {
   MockECommerceRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Fialure, _i6.Product>> updateProduct(
-          _i6.Product? product) =>
+  _i5.Future<_i2.Either<_i6.Fialure, _i3.Product>> updateProduct(
+          _i3.Product? product) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateProduct,
           [product],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Fialure, _i6.Product>>.value(
-            _FakeEither_0<_i5.Fialure, _i6.Product>(
+        returnValue: _i5.Future<_i2.Either<_i6.Fialure, _i3.Product>>.value(
+            _FakeEither_0<_i6.Fialure, _i3.Product>(
           this,
           Invocation.method(
             #updateProduct,
             [product],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Fialure, _i6.Product>>);
+      ) as _i5.Future<_i2.Either<_i6.Fialure, _i3.Product>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Fialure, _i6.Product>> insertProduct(
-          _i6.Product? product) =>
+  _i5.Future<_i2.Either<_i6.Fialure, _i3.Product>> insertProduct(
+          _i3.Product? product) =>
       (super.noSuchMethod(
         Invocation.method(
           #insertProduct,
           [product],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Fialure, _i6.Product>>.value(
-            _FakeEither_0<_i5.Fialure, _i6.Product>(
+        returnValue: _i5.Future<_i2.Either<_i6.Fialure, _i3.Product>>.value(
+            _FakeEither_0<_i6.Fialure, _i3.Product>(
           this,
           Invocation.method(
             #insertProduct,
             [product],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Fialure, _i6.Product>>);
+      ) as _i5.Future<_i2.Either<_i6.Fialure, _i3.Product>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Fialure, _i6.Product>> deleteProduct(int? id) =>
+  _i5.Future<_i2.Either<_i6.Fialure, _i2.Unit>> deleteProduct(int? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteProduct,
           [id],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Fialure, _i6.Product>>.value(
-            _FakeEither_0<_i5.Fialure, _i6.Product>(
+        returnValue: _i5.Future<_i2.Either<_i6.Fialure, _i2.Unit>>.value(
+            _FakeEither_0<_i6.Fialure, _i2.Unit>(
           this,
           Invocation.method(
             #deleteProduct,
             [id],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Fialure, _i6.Product>>);
+      ) as _i5.Future<_i2.Either<_i6.Fialure, _i2.Unit>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Fialure, _i6.Product>> getAllProduct() =>
+  _i5.Future<_i2.Either<_i6.Fialure, List<_i3.Product>>> getAllProduct() =>
       (super.noSuchMethod(
         Invocation.method(
           #getAllProduct,
           [],
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Fialure, _i6.Product>>.value(
-            _FakeEither_0<_i5.Fialure, _i6.Product>(
+        returnValue:
+            _i5.Future<_i2.Either<_i6.Fialure, List<_i3.Product>>>.value(
+                _FakeEither_0<_i6.Fialure, List<_i3.Product>>(
           this,
           Invocation.method(
             #getAllProduct,
             [],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Fialure, _i6.Product>>);
+      ) as _i5.Future<_i2.Either<_i6.Fialure, List<_i3.Product>>>);
+
+  @override
+  _i5.Future<_i2.Either<_i6.Fialure, _i3.Product>> getProductById(int? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getProductById,
+          [id],
+        ),
+        returnValue: _i5.Future<_i2.Either<_i6.Fialure, _i3.Product>>.value(
+            _FakeEither_0<_i6.Fialure, _i3.Product>(
+          this,
+          Invocation.method(
+            #getProductById,
+            [id],
+          ),
+        )),
+      ) as _i5.Future<_i2.Either<_i6.Fialure, _i3.Product>>);
+}
+
+/// A class which mocks [ProductRemoteDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockProductRemoteDataSource extends _i1.Mock
+    implements _i7.ProductRemoteDataSource {
+  MockProductRemoteDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Future<_i3.Product> updateProduct(_i3.Product? product) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateProduct,
+          [product],
+        ),
+        returnValue: _i5.Future<_i3.Product>.value(_FakeProduct_1(
+          this,
+          Invocation.method(
+            #updateProduct,
+            [product],
+          ),
+        )),
+      ) as _i5.Future<_i3.Product>);
+
+  @override
+  _i5.Future<_i3.Product> insertProduct(_i3.Product? product) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #insertProduct,
+          [product],
+        ),
+        returnValue: _i5.Future<_i3.Product>.value(_FakeProduct_1(
+          this,
+          Invocation.method(
+            #insertProduct,
+            [product],
+          ),
+        )),
+      ) as _i5.Future<_i3.Product>);
+
+  @override
+  _i5.Future<_i2.Unit> deleteProduct(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteProduct,
+          [id],
+        ),
+        returnValue: _i5.Future<_i2.Unit>.value(_FakeUnit_2(
+          this,
+          Invocation.method(
+            #deleteProduct,
+            [id],
+          ),
+        )),
+      ) as _i5.Future<_i2.Unit>);
+
+  @override
+  _i5.Future<List<_i3.Product>> getAllProduct() => (super.noSuchMethod(
+        Invocation.method(
+          #getAllProduct,
+          [],
+        ),
+        returnValue: _i5.Future<List<_i3.Product>>.value(<_i3.Product>[]),
+      ) as _i5.Future<List<_i3.Product>>);
+
+  @override
+  _i5.Future<_i3.Product> getProductById(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #getProductById,
+          [id],
+        ),
+        returnValue: _i5.Future<_i3.Product>.value(_FakeProduct_1(
+          this,
+          Invocation.method(
+            #getProductById,
+            [id],
+          ),
+        )),
+      ) as _i5.Future<_i3.Product>);
+}
+
+/// A class which mocks [ProductLocalDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockProductLocalDataSource extends _i1.Mock
+    implements _i8.ProductLocalDataSource {
+  MockProductLocalDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Future<void> cacheProduct(_i3.Product? product) => (super.noSuchMethod(
+        Invocation.method(
+          #cacheProduct,
+          [product],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<void> cacheProducts(List<_i3.Product>? items) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #cacheProducts,
+          [items],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<void> deleteProduct(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteProduct,
+          [id],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<void> deleteCachedProduct(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteCachedProduct,
+          [id],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<List<_i3.Product>> getCachedProducts() => (super.noSuchMethod(
+        Invocation.method(
+          #getCachedProducts,
+          [],
+        ),
+        returnValue: _i5.Future<List<_i3.Product>>.value(<_i3.Product>[]),
+      ) as _i5.Future<List<_i3.Product>>);
+
+  @override
+  _i5.Future<_i3.Product> getCatchedProductById(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #getCatchedProductById,
+          [id],
+        ),
+        returnValue: _i5.Future<_i3.Product>.value(_FakeProduct_1(
+          this,
+          Invocation.method(
+            #getCatchedProductById,
+            [id],
+          ),
+        )),
+      ) as _i5.Future<_i3.Product>);
+}
+
+/// A class which mocks [NetworkInfo].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockNetworkInfo extends _i1.Mock implements _i9.NetworkInfo {
+  MockNetworkInfo() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Future<bool> get isConnected => (super.noSuchMethod(
+        Invocation.getter(#isConnected),
+        returnValue: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
 }

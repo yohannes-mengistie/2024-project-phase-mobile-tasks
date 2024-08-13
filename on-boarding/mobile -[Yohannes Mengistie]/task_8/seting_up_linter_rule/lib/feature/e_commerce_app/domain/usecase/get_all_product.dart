@@ -8,7 +8,7 @@ class GetAllProduct {
   final ECommerceRepository repository;
   GetAllProduct(this.repository);
 
-  Future<Either<Fialure,Product>> execute(){
+  Future<Either<Fialure, List<Product>>> execute(){
     return repository.getAllProduct();
   }
 }

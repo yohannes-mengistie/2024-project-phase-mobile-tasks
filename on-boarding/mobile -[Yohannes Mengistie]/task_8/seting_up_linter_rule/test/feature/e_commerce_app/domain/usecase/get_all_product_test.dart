@@ -28,7 +28,7 @@ void main() {
     'should get product  from the repository',
     () async {
       when(mockEcommerceRepository.getAllProduct())
-          .thenAnswer((_) async => Right(items));
+          .thenAnswer((_) async => Right(items as List<Product>));
 
       final result = await getAllProductusecase.execute();
 

@@ -25,7 +25,7 @@ void main() {
     'should delete product from the repository',
     () async {
       when(mockEcommerceRepository.deleteProduct(any))
-          .thenAnswer((_) async => Right(itemsToTest));
+          .thenAnswer((_) async => Right(unit));
 
       final result = await usecase.execute(itemId);
 
