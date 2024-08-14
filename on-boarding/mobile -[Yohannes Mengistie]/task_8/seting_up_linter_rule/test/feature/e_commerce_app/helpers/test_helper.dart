@@ -1,4 +1,5 @@
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mockito/annotations.dart';
 import 'package:seting_up_linter_rule/core/error/network/network_info.dart';
 import 'package:seting_up_linter_rule/feature/e_commerce_app/data/data_sources/product_local_data_source.dart';
@@ -10,6 +11,7 @@ import 'package:seting_up_linter_rule/feature/e_commerce_app/domain/repository/e
   ProductRemoteDataSource,
   ProductLocalDataSource,
   NetworkInfo,
-  InternetConnectionChecker
+  InternetConnectionChecker,
+  SharedPreferences 
 ])
 void main() {}
