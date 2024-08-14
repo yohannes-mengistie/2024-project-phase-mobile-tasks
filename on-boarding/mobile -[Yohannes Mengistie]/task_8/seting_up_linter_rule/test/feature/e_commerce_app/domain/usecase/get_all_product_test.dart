@@ -16,19 +16,30 @@ void main() {
     mockEcommerceRepository = MockECommerceRepository();
     getAllProductusecase = GetAllProduct(mockEcommerceRepository);
   });
-  Product items = Product(
-      name: 'nike',
-      category: 'men',
-      description: 'white',
-      price: 120,
+  List<Product> items = [
+    Product(
       id: 1,
-      imageUrl: 'image');
+      name: 'Test Product 1',
+      category: 'men',
+      description: 'Description 1',
+      price: 100,
+      imageUrl: 'url1',
+    ),
+    Product(
+      id: 2,
+      name: 'Test Product 2',
+      category: 'women',
+      description: 'Description 2',
+      price: 200,
+      imageUrl: 'url2',
+    ),
+  ];
 
   test(
     'should get product  from the repository',
     () async {
       when(mockEcommerceRepository.getAllProduct())
-          .thenAnswer((_) async => Right(items as List<Product>));
+          .thenAnswer((_) async => Right(items ));
 
       final result = await getAllProductusecase.execute();
 

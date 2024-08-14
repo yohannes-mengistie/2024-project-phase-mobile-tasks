@@ -29,7 +29,7 @@ void main() {
 
       final result = await usecase.execute(itemId);
 
-      expect(result, Right(itemsToTest));
+      expect(result, const Right(unit));
       verify(mockEcommerceRepository.deleteProduct(itemId));
       verifyNoMoreInteractions(mockEcommerceRepository);
     },
