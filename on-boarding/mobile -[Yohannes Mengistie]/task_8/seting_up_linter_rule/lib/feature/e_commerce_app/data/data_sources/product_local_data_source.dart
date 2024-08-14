@@ -49,10 +49,10 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
   }
 
   @override
-  Future<List<Product>> getCachedProducts() async {
+  Future<List<ProductModel>> getCachedProducts() async {
     final jsonStringList = sharedPreferences.getStringList(CACHED_PRODUCTS);
     if (jsonStringList != null) {
-      final List<Product> productList = jsonStringList
+      final List<ProductModel> productList = jsonStringList
           .map((jsonProduct) => ProductModel.fromJson(json.decode(jsonProduct)))
           .toList();
       return productList;
