@@ -7,6 +7,9 @@ abstract class Fialure extends Equatable {
   List<Object> get props => [message];
 }
 
+class CreateProductFailure extends Fialure {
+  const CreateProductFailure(String message) : super(message);
+}
 // General Failure
 
 class ServerFailure extends Fialure {
