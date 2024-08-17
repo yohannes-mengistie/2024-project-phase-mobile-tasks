@@ -23,9 +23,8 @@ void main() {
 
 // test products
   final tProductModel = ProductModel(
-    id: 1,
+    id: '1',
     name: 'Test Product',
-    category: 'men',
     description: 'Description 1',
     price: 100,
     imageUrl: 'url1',
@@ -33,35 +32,36 @@ void main() {
 
   final tProductModelList = [
     ProductModel(
-      id: 1,
+      id: '1',
       name: 'Test Product 1',
-      category: 'men',
       description: 'Description 1',
       price: 100,
       imageUrl: 'url1',
     ),
     ProductModel(
-      id: 2,
+      id: '2',
       name: 'Test Product 2',
-      category: 'women',
       description: 'Description 2',
       price: 200,
       imageUrl: 'url2',
     ),
   ];
 
-  final tProductId = 1;
+  final tProductId = '1';
 
   group('getAllProduct', () {
-    test('should return List<Product> when the response code is 200 (success)',
+    test(
+        'should return List<ProductModel> when the response code is 200 (success)',
         () async {
       // Arrange
       when(mockClient.get(Uri.parse(Urls.productsUrl),
               headers: anyNamed('headers')))
           .thenAnswer(
         (_) async => http.Response(
-            json.encode(
-                tProductModelList.map((product) => product.toJson()).toList()),
+            json.encode({
+              'data':
+                  tProductModelList.map((product) => product.toJson()).toList()
+            }),
             200),
       );
 
@@ -96,7 +96,7 @@ void main() {
       when(mockClient.get(Uri.parse('${Urls.productUrl}/$tProductId'),
               headers: anyNamed('headers')))
           .thenAnswer(
-        (_) async => http.Response(json.encode(tProductModel.toJson()), 200),
+        (_) async => http.Response(json.encode({'data':tProductModel.toJson()}), 200),
       );
 
       // Act
@@ -112,7 +112,7 @@ void main() {
       when(mockClient.get(Uri.parse('${Urls.productUrl}/$tProductId'),
               headers: anyNamed('headers')))
           .thenAnswer(
-        (_) async => http.Response(json.encode(tProductModel.toJson()), 200),
+        (_) async => http.Response(json.encode({'data':tProductModel.toJson()}), 200),
       );
 
       // Act
@@ -149,7 +149,7 @@ void main() {
         headers: anyNamed('headers'),
         body: json.encode(tProductModel.toJson()),
       )).thenAnswer(
-        (_) async => http.Response(json.encode(tProductModel.toJson()), 201),
+        (_) async => http.Response(json.encode({'data':tProductModel.toJson()}), 201),
       );
 
       // Act
@@ -187,7 +187,7 @@ void main() {
         headers: anyNamed('headers'),
         body: json.encode(tProductModel.toJson()),
       )).thenAnswer(
-        (_) async => http.Response(json.encode(tProductModel.toJson()), 200),
+        (_) async => http.Response(json.encode({'data':tProductModel.toJson()}), 200),
       );
 
       // Act

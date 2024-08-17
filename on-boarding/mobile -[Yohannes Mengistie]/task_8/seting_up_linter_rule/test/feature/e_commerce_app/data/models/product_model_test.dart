@@ -9,9 +9,9 @@ void main() {
 
   setUp(() {
     final String jsonString = readJson(
-        'test/feature/e_commerce_app/helpers/dummy_data/product_json.json');
+        'product_json.json');
 
-    final Map<String, dynamic> jsonMap = json.decode(jsonString);
+    final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
     testProductModel = ProductModel.fromJson(jsonMap);
   });
 
@@ -34,13 +34,14 @@ void main() {
       final result = testProductModel.toJson();
       // Assert
       final expectedMap = {
-        'name': 'Nike Shoe',
-        'category': 'Men',
-        'description': 'Confortable Running Shoes',
-        'price': 120.0,
-        'id': 1,
-        'imageUrl': 'image',
-      };
+      
+        "id": "2",
+        "name": "Test Product 2",
+        "description": "Description 2",
+        "price": 200,
+        "imageUrl": "url2"
+      
+    };
       expect(result, expectedMap);
     });
   });

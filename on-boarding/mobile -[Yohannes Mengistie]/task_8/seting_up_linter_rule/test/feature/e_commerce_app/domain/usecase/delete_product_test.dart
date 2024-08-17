@@ -13,13 +13,13 @@ void main() {
     mockEcommerceRepository = MockECommerceRepository();
     usecase = DeleteProduct(mockEcommerceRepository);
   });
-  const itemId = 1;
+  const itemId = '1';
   Product itemsToTest = Product(
       name: 'nike',
-      category: 'men',
+      
       description: 'white',
       price: 120,
-      id: 1,
+      id: '1',
       imageUrl: 'image');
   test(
     'should delete product from the repository',

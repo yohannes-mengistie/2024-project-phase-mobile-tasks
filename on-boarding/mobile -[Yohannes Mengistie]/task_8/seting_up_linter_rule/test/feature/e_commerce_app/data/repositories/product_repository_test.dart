@@ -6,6 +6,7 @@ import 'package:seting_up_linter_rule/core/error/fialures.dart';
 import 'package:seting_up_linter_rule/core/error/network/network_info.dart';
 import 'package:seting_up_linter_rule/feature/e_commerce_app/data/data_sources/product_local_data_source.dart';
 import 'package:seting_up_linter_rule/feature/e_commerce_app/data/data_sources/product_remote_data_source.dart';
+import 'package:seting_up_linter_rule/feature/e_commerce_app/data/models/product_model.dart';
 import 'package:seting_up_linter_rule/feature/e_commerce_app/data/repositories/product_repository_impl.dart';
 import 'package:seting_up_linter_rule/feature/e_commerce_app/domain/entities/e_commerce.dart';
 
@@ -29,39 +30,36 @@ void main() {
   });
 
   final tProductModelList = [
-    Product(
-        id: 1,
+    ProductModel(
+        id: '1',
         name: 'Test Product 1',
-        category: 'men',
         description: 'Description 1',
         price: 100,
         imageUrl: 'url1'),
-    Product(
-        id: 2,
+    ProductModel(
+        id: '2',
         name: 'Test Product 2',
-        category: 'women',
         description: 'Description 2',
         price: 200,
         imageUrl: 'url2'),
   ];
 
-  final testProduct = Product(
-      category: 'men shoe',
+  final testProduct = ProductModel(
+
       description: 'Description 2',
-      id: 3,
+      id: '3',
       imageUrl: 'url3',
       name: 'test product 3',
       price: 300);
 
-  final testProductEntity = Product(
-      id: 4,
+  final testProductEntity = ProductModel(
+      id: '4',
       name: 'Test Pineapple',
       description: 'A yellow pineapple for the summer',
-      category: 'for all',
       imageUrl: 'pineapple.jpg',
       price: 5.33);
 
-  final testProductId = 5;
+  final testProductId = '5';
 
   void runTestOnLine(Function body) {
     group('device is online', () {

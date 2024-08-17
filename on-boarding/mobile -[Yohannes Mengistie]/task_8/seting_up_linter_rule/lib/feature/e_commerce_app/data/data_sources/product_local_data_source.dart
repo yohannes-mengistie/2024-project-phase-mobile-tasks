@@ -9,12 +9,12 @@ import '../models/product_model.dart';
 const CACHED_PRODUCTS = 'CACHED_PRODUCTS';
 
 abstract class ProductLocalDataSource {
-  Future<void> cacheProduct(Product product);
-  Future<void> cacheProducts(List<Product> items);
-  Future<void> deleteProduct(int id);
-  Future<void> deleteCachedProduct(int id);
-  Future<List<Product>> getCachedProducts();
-  Future<Product> getCatchedProductById(int id);
+  Future<void> cacheProduct(ProductModel product);
+  Future<void> cacheProducts(List<ProductModel> items);
+  Future<void> deleteProduct(String id);
+  Future<void> deleteCachedProduct(String id);
+  Future<List<ProductModel>> getCachedProducts();
+  Future<ProductModel> getCatchedProductById(String id);
 }
 
 class ProductLocalDataSourceImpl implements ProductLocalDataSource {
@@ -23,28 +23,28 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
   ProductLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
-  Future<void> cacheProduct(Product product) async {
-    final productModel = product as ProductModel;
+  Future<void> cacheProduct(ProductModel product) async {
+    final productModel = product;
     final String jsonString = json.encode(productModel.toJson());
     await sharedPreferences.setString(
         'CACHED_PRODUCT_${product.id}', jsonString);
   }
 
   @override
-  Future<void> cacheProducts(List<Product> items) async {
+  Future<void> cacheProducts(List<ProductModel> items) async {
     final List<String> jsonProductList = items
-        .map((product) => json.encode((product as ProductModel).toJson()))
+        .map((product) => json.encode((product).toJson()))
         .toList();
     await sharedPreferences.setStringList(CACHED_PRODUCTS, jsonProductList);
   }
 
   @override
-  Future<void> deleteProduct(int id) async {
+  Future<void> deleteProduct(String id) async {
     await sharedPreferences.remove('CACHED_PRODUCT_$id');
   }
 
   @override
-  Future<void> deleteCachedProduct(int id) async {
+  Future<void> deleteCachedProduct(String id) async {
     await deleteProduct(id);
   }
 
@@ -62,7 +62,7 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
   }
 
   @override
-  Future<Product> getCatchedProductById(int id) async {
+  Future<ProductModel> getCatchedProductById(String id) async {
     final jsonString = sharedPreferences.getString('CACHED_PRODUCT_$id');
     if (jsonString != null) {
       return ProductModel.fromJson(json.decode(jsonString));

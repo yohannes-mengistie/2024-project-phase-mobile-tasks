@@ -22,7 +22,7 @@ class GetSingleProductEvent extends ECommerceEvent {
 
 class UpdateProductEvent extends ECommerceEvent {
   final String productId;
-  final Product updateProductDetails;
+  final ProductModel updateProductDetails;
 
   const UpdateProductEvent(this.productId, this.updateProductDetails);
   @override
@@ -39,10 +39,9 @@ class DeleteProductEvent extends ECommerceEvent {
 }
 
 class CreatProductEvent extends ECommerceEvent {
-  final Product newProductDetails;
+  final ProductModel newProductDetails;
   const CreatProductEvent(this.newProductDetails);
 
   @override
-  // TODO: implement props
   List<Object> get props => [newProductDetails];
 }

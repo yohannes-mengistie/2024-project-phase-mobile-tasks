@@ -1,8 +1,11 @@
 {
-    "name": "Nike Shoe",
-    "category": "Men",
-    "description": "Confortable Running Shoes",
-    "price": 120.0,
-    "id": 1,
-    "imageUrl": "image"
-}
+    
+    
+    "id": "2",
+    "name": "Test Product 2",
+    "description": "Description 2",
+    "price": 200,
+    "imageUrl": "url2"
+   
+  }
+  

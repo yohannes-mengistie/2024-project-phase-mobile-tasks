@@ -8,7 +8,7 @@ class DeleteProduct {
   final ECommerceRepository repository;
   DeleteProduct(this.repository);
 
-  Future<Either<Fialure, Unit>> execute(int id) {
+  Future<Either<Fialure, Unit>> execute(String id) {
     return repository.deleteProduct(id);
   }
 }

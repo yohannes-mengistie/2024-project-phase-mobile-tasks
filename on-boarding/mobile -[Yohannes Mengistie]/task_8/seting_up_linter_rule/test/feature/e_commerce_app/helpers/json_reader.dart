@@ -1,7 +1,7 @@
 import 'dart:io';
 
 String readJson(String path) {
-  final file = File(path);
+  final file = File('test/feature/e_commerce_app/helpers/dummy_data/$path');
   print('Looking for file at: ${file.absolute.path}');
 
   if (!file.existsSync()) {

@@ -4,15 +4,14 @@ import 'package:flutter/widgets.dart';
 
 class Product extends Equatable {
   final String name;
-  final String category;
   final String description;
   final double price;
-  final int id;
+  final String id;
   final String imageUrl;
 
   Product(
       {required this.name,
-      required this.category,
+    
       required this.description,
       required this.price,
       required this.id,
@@ -22,7 +21,6 @@ class Product extends Equatable {
   // TODO: implement props
   List<Object?> get props => [
         name,
-        category,
         description,
         price,
         id,

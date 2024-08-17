@@ -22,9 +22,8 @@ void main() {
   });
 
   final tProductModel = ProductModel(
-    id: 1,
+    id: '1',
     name: 'Test Product',
-    category: 'men',
     description: 'Description 1',
     price: 100,
     imageUrl: 'url1',
@@ -32,24 +31,22 @@ void main() {
 
   final tProductModelList = [
     ProductModel(
-      id: 1,
+      id: '1',
       name: 'Test Product 1',
-      category: 'men',
       description: 'Description 1',
       price: 100,
       imageUrl: 'url1',
     ),
     ProductModel(
-      id: 2,
+      id: '2',
       name: 'Test Product 2',
-      category: 'women',
       description: 'Description 2',
       price: 200,
       imageUrl: 'url2',
     ),
   ];
 
-  final tProductId = 1;
+  final tProductId = '1';
 
   // cacheProduct test
   group('cacheProduct', () {

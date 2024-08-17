@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:seting_up_linter_rule/core/error/fialures.dart';
+import 'package:seting_up_linter_rule/feature/e_commerce_app/data/models/product_model.dart';
 import 'package:seting_up_linter_rule/feature/e_commerce_app/domain/entities/e_commerce.dart';
 import 'package:seting_up_linter_rule/feature/e_commerce_app/presentation/bloc/e_commerce_bloc.dart';
 
@@ -20,11 +21,10 @@ void main() {
   tearDown(() {
     ecommerceBloc.close();
   });
-  final tProductId = 1;
-  final tProduct = Product(
-    id: 1,
+  final tProductId = '1';
+  final tProduct = ProductModel(
+    id: '1',
     name: 'Test Product',
-    category: 'men',
     description: 'Description 1',
     price: 100,
     imageUrl: 'url1',

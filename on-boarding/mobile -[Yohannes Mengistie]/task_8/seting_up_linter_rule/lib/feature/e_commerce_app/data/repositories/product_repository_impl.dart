@@ -6,6 +6,7 @@ import '../../domain/entities/e_commerce.dart';
 import '../../domain/repository/e_commerce_repository.dart';
 import '../data_sources/product_local_data_source.dart';
 import '../data_sources/product_remote_data_source.dart';
+import '../models/product_model.dart';
 
 class ProductRepositoryImpl implements ECommerceRepository {
   final ProductRemoteDataSource remoteDataSource;
@@ -19,7 +20,7 @@ class ProductRepositoryImpl implements ECommerceRepository {
   });
 
   @override
-  Future<Either<Fialure, Unit>> deleteProduct(int id) async {
+  Future<Either<Fialure, Unit>> deleteProduct(String id) async {
     if (await networkInfo.isConnected) {
       try {
         final product = await remoteDataSource.getProductById(id);
@@ -35,7 +36,7 @@ class ProductRepositoryImpl implements ECommerceRepository {
   }
 
   @override
-  Future<Either<Fialure, List<Product>>> getAllProduct() async {
+  Future<Either<Fialure, List<ProductModel>>> getAllProduct() async {
     if (await networkInfo.isConnected) {
       try {
         final remoteProducts = await remoteDataSource.getAllProduct();
@@ -55,22 +56,24 @@ class ProductRepositoryImpl implements ECommerceRepository {
   }
 
   @override
-  Future<Either<Fialure, Product>> insertProduct(Product product) async {
+  Future<Either<Fialure, ProductModel>> insertProduct(ProductModel product) async {
     if (await networkInfo.isConnected) {
       try {
         final insertedProduct = await remoteDataSource.insertProduct(product);
+        print(insertedProduct);
         await localDataSource.cacheProduct(insertedProduct);
         return Right(insertedProduct);
+      
       } on ServerException {
         return Left(ServerFailure('Failed to insert product to server.'));
       }
     } else {
-      return Left(ServerFailure('No internet connection.'));
+      return Left(ServerFailure('No Stringernet connection.'));
     }
   }
 
   @override
-  Future<Either<Fialure, Product>> updateProduct(Product product) async {
+  Future<Either<Fialure, ProductModel>> updateProduct(ProductModel product) async {
     if (await networkInfo.isConnected) {
       try {
         final updatedProduct = await remoteDataSource.updateProduct(product);
@@ -80,12 +83,12 @@ class ProductRepositoryImpl implements ECommerceRepository {
         return Left(ServerFailure('Failed to update product on server.'));
       }
     } else {
-      return Left(ServerFailure('No internet connection.'));
+      return Left(ServerFailure('No StrongInternet connection.'));
     }
   }
 
   @override
-  Future<Either<Fialure, Product>> getProductById(int id) async {
+  Future<Either<Fialure, ProductModel>> getProductById(String id) async {
     if (await networkInfo.isConnected) {
       try {
         final remoteProducts = await remoteDataSource.getProductById(id);

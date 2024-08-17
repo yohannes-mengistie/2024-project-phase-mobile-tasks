@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:dartz/dartz.dart';
+import 'package:seting_up_linter_rule/feature/e_commerce_app/data/models/product_model.dart';
 import 'package:seting_up_linter_rule/feature/e_commerce_app/domain/entities/e_commerce.dart';
 import 'package:seting_up_linter_rule/feature/e_commerce_app/domain/repository/e_commerce_repository.dart';
 import 'package:mockito/mockito.dart';
@@ -17,12 +18,12 @@ void main() {
     mockEcommerceRepository = MockECommerceRepository();
     insertProductusecase = InsertProduct(mockEcommerceRepository);
   });
-  Product items = Product(
+  ProductModel items = ProductModel(
       name: 'nike',
-      category: 'men',
+      
       description: 'white',
       price: 120,
-      id: 1,
+      id: '1',
       imageUrl: 'image');
 
   test(
