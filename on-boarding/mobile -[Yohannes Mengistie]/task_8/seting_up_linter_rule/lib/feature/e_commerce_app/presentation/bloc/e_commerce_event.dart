@@ -45,3 +45,5 @@ class CreatProductEvent extends ECommerceEvent {
   @override
   List<Object> get props => [newProductDetails];
 }
+
+class DummyECommerceEvent extends ECommerceEvent{}

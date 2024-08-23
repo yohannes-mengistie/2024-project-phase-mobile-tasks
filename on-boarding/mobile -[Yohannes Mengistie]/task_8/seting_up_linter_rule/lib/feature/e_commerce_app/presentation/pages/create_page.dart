@@ -50,8 +50,6 @@ class _AddUpdateState extends State<CreateProductPage> {
       );
 
       context.read<ECommerceBloc>().add(CreatProductEvent(newProduct));
-      await Future.delayed(Duration(seconds: 1));
-      context.read<ECommerceBloc>().add(const LoadAllProductEvent());
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -59,6 +57,7 @@ class _AddUpdateState extends State<CreateProductPage> {
         ),
       );
     }
+    
   }
 
   @override
@@ -68,24 +67,31 @@ class _AddUpdateState extends State<CreateProductPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
+            context.read<ECommerceBloc>().add(const LoadAllProductEvent());
             Navigator.of(context).pop();
           },
         ),
-        title: Text("Add Product"),
+        title: const Text("Add Product"),
       ),
       body: BlocListener<ECommerceBloc, ECommerceState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is LoadedSingleProductState) {
-            Navigator.of(context).pop(); // Close the progress dialog
-            Navigator.of(context).pop(state.product); // Return the new product
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Product Created Successfully')),
+            );
+ 
+            context.read<ECommerceBloc>().add(const LoadAllProductEvent());
+            
+            print(state.product);
+            Navigator.of(context).pop(state.product); 
           } else if (state is ErrorState) {
-            Navigator.of(context).pop(); // Close the progress dialog
+            Navigator.of(context).pop(); 
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Error: ${state.message}')),
             );
           }
         },
-        child: SingleChildScrollView(
+         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,9 +126,10 @@ class _AddUpdateState extends State<CreateProductPage> {
                         ),
                 ),
               ),
-              SizedBox(height: 16),
-              Text("Name", style: TextStyle(fontSize: 16)),
+              const SizedBox(height: 16),
+              const Text("Name", style: TextStyle(fontSize: 16)),
               TextField(
+                key: const Key('namedField'),
                 controller: _nameController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -130,24 +137,26 @@ class _AddUpdateState extends State<CreateProductPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 16),
-              Text("Price", style: TextStyle(fontSize: 16)),
+              const SizedBox(height: 16),
+              const Text("Price", style: TextStyle(fontSize: 16)),
               TextField(
+                key: const Key('priceField'),
                 controller: _priceController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  suffixIcon: Padding(
+                  suffixIcon: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12),
                     child: Text('\$', style: TextStyle(fontSize: 18)),
                   ),
                 ),
               ),
-              SizedBox(height: 16),
-              Text("Description", style: TextStyle(fontSize: 16)),
+              const SizedBox(height: 16),
+              const Text("Description", style: TextStyle(fontSize: 16)),
               TextField(
+                key: const Key('descriptionField'),
                 controller: _descriptionController,
                 maxLines: 4,
                 decoration: InputDecoration(
@@ -159,32 +168,34 @@ class _AddUpdateState extends State<CreateProductPage> {
               const SizedBox(height: 24),
               Center(
                 child: ElevatedButton(
-                  onPressed: () {
-                    // showDialog(
-                    //   context: context,
-                    //   barrierDismissible: false,
-                    //   builder: (context) => const AlertDialog(
-                    //     title: Text('Adding Product!'),
-                    //     content: CircularProgressIndicator(),
-                    //   ),
-                    // );
-                    _saveProduct();
+                  onPressed: () async {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) => const AlertDialog(
+                        title: Text('Adding Product!'),
+                        content: CircularProgressIndicator(),
+                      ),
+                    );
+                    await _saveProduct();
+                    await Future.delayed(const Duration(seconds: 1));
+                    Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 79, 43, 240),
-                    padding:
-                        EdgeInsets.symmetric(vertical: 16, horizontal: 140),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16, horizontal: 140),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  child: Text(
+                  child: const Text(
                     "ADD",
                     style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Center(
                 child: Container(
                   decoration: BoxDecoration(
@@ -197,13 +208,13 @@ class _AddUpdateState extends State<CreateProductPage> {
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.white,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 16, horizontal: 125),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16, horizontal: 125),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       "CANCEL",
                       style: TextStyle(color: Colors.red, fontSize: 16),
                     ),
@@ -213,7 +224,7 @@ class _AddUpdateState extends State<CreateProductPage> {
             ],
           ),
         ),
-      ),
-    );
+      
+    ),);
   }
 }

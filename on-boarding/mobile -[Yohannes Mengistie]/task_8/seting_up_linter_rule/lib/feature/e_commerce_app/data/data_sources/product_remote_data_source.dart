@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:http/http.dart' as http;
+import '../../../../core/error/network/http.dart';
 import 'package:http_parser/http_parser.dart';
 
 import '../../../../core/error/constants/constants.dart';
@@ -19,9 +19,10 @@ abstract class ProductRemoteDataSource {
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
-  final http.Client client;
+  final HttpClient client;
+  final String _baseUrl;
 
-  ProductRemoteDataSourceImpl({required this.client});
+  ProductRemoteDataSourceImpl({required this.client}):_baseUrl='$baseUrl/products';
 
   String ImageProvider(String imageUrl) {
     if (imageUrl.toLowerCase().endsWith('png')) {
@@ -36,9 +37,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
   @override
   Future<Unit> deleteProduct(String id) async {
-    final response = await client.delete(
-      Uri.parse('${Urls.deleteProductUrl}/$id'),
-      headers: {'Content-Type': 'application/json'},
+    final response = await client.delete('$_baseUrl/$id'
     );
     if (response.statusCode == 200) {
       return unit;
@@ -50,8 +49,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   @override
   Future<List<ProductModel>> getAllProduct() async {
     final response = await client.get(
-      Uri.parse(Urls.productsUrl),
-      headers: {'Content-Type': 'application/json'},
+     _baseUrl
     );
 
     if (response.statusCode == 200) {
@@ -68,8 +66,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   @override
   Future<ProductModel> getProductById(String id) async {
     final response = await client.get(
-      Uri.parse('${Urls.productUrl}/$id'),
-      headers: {'Content-Type': 'application/json'},
+      '$_baseUrl/$id'
     );
 
     print(response.body);
@@ -83,66 +80,90 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
   @override
   Future<ProductModel> insertProduct(ProductModel product) async {
-    var request = http.MultipartRequest(
-      'POST',
-      Uri.parse(
-          'https://g5-flutter-learning-path-be.onrender.com/api/v1/products'),
-    );
+    try {
+      final response = await client.uploadFile(_baseUrl, HttpMethod.post, {
+        'name': product.name,
+        'description': product.description,
+        'price': product.price.toString()
+      }, [
+        UploadFile(
+          key: 'image',
+          path: product.imageUrl,
+          
+        )
+      ]);
 
-    request.fields.addAll({
-      'name': product.name,
-      'description': product.description,
-      'price': product.price.toString(),
-    });
+    
+    // request.fields.addAll({
+    //   'name': product.name,
+    //   'description': product.description,
+    //   'price': product.price.toString(),
+    // });
 
-    print(
-        '================================================${product.imageUrl}');
-    if (product.imageUrl.isNotEmpty) {
-      String imageType = ImageProvider(product.imageUrl);
-      request.files.add(await http.MultipartFile.fromPath(
-          'image', product.imageUrl,
-          contentType: MediaType('image', imageType)));
-    }
+    // print(
+    //     '================================================${product.imageUrl}');
+    // if (product.imageUrl.isNotEmpty) {
+    //   String imageType = ImageProvider(product.imageUrl);
+    //   request.files.add(await http.MultipartFile.fromPath(
+    //       'image', product.imageUrl,
+    //       contentType: MediaType('image', imageType)));
+    // }
 
-    final response = await request.send();
+    // final response = await request.send();
     print(response.statusCode);
 
     if (response.statusCode == 201) {
-      final responseBody = await response.stream.bytesToString();
+      
       print('\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\${responseBody}');
-      final jsonMap = json.decode(responseBody);
+      final jsonMap = json.decode(response.body);
 
       return ProductModel.fromJson(jsonMap);
     } else {
-      throw ServerException();
+      throw ServerException(response.body);
     }
+  }catch(e){
+    throw ServerException(e.toString());
+  }
   }
 
   @override
   Future<ProductModel> updateProduct(ProductModel product) async {
-    final productId = product.id;
-    final jsonBody = jsonEncode({
-      'name': product.name,
-      'description': product.description,
-      'price': product.price,
-    });
+     try {
+      final response =
+          await client.put('$_baseUrl/${product.id}', product.toJson());
 
-    final url = Uri.parse(
-        '${'https://g5-flutter-learning-path-be.onrender.com/api/v1/products'}/$productId');
-    final response = await client.put(
-      url,
-      body: jsonBody,
-      headers: {'Content-Type': 'application/json'},
-    );
-
-    print('===========Status code: ${response.statusCode}');
-    print('Response body: ${response.body}');
-
-    if (response.statusCode == 200) {
-      return ProductModel.fromJson(json.decode(response.body)['data']);
-    } else {
-      throw ServerException(
-          'Failed to update product on server: ${response.reasonPhrase}');
+      if (response.statusCode == 200) {
+        return ProductModel.fromJson(jsonDecode(response.body)['data']);
+      } else {
+        throw ServerException(response.body);
+      }
+    } catch (e) {
+      throw ServerException(e.toString());
     }
   }
+  //   final productId = product.id;
+  //   final jsonBody = jsonEncode({
+  //     'name': product.name,
+  //     'description': product.description,
+  //     'price': product.price,
+  //   });
+
+  //   final url = Uri.parse(
+  //       '${'https://g5-flutter-learning-path-be.onrender.com/api/v1/products'}/$productId');
+  //   final response = await client.put(
+  //     url,
+  //     body: jsonBody,
+  //     headers: {'Content-Type': 'application/json'},
+  //   );
+
+  //   print('===========Status code: ${response.statusCode}');
+  //   print('Response body: ${response.body}');
+
+  //   if (response.statusCode == 200) {
+  //     return ProductModel.fromJson(json.decode(response.body)['data']);
+  //   } else {
+  //     throw ServerException(
+  //         'Failed to update product on server: ${response.reasonPhrase}');
+  //   }
+  // }
 }

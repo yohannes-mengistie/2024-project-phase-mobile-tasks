@@ -44,3 +44,10 @@ class ErrorState extends ECommerceState {
 }
 
 class EmptyState extends ECommerceState {}
+
+class ProductCreatedState extends ECommerceState{
+  final Product product;
+
+  const ProductCreatedState({required this.product});
+  List<Object> get probs => [product];
+}

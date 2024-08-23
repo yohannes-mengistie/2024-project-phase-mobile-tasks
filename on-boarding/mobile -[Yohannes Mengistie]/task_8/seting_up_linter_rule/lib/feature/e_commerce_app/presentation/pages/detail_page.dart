@@ -150,8 +150,10 @@ class ProductDetailPage extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           onPressed: () async {
-                            context.read<ECommerceBloc>().add(DeleteProductEvent(product.id.toString()));
-                                
+                            context
+                                .read<ECommerceBloc>()
+                                .add(DeleteProductEvent(product.id.toString()));
+
                             await Future.delayed(const Duration(seconds: 1));
                             context
                                 .read<ECommerceBloc>()

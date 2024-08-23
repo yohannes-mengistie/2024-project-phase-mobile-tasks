@@ -33,12 +33,12 @@ class HomePage extends StatelessWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'July 14, 2023',
               style: TextStyle(fontSize: 14, color: Colors.grey),
             ),
             RichText(
-              text: TextSpan(
+              text: const TextSpan(
                 children: [
                   TextSpan(
                     text: "Hello, ",
@@ -85,7 +85,7 @@ class HomePage extends StatelessWidget {
                 child: Container(
                   width: 10,
                   height: 10,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.blue,
                     shape: BoxShape.circle,
                   ),
@@ -110,7 +110,7 @@ class HomePage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         "Available Products",
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
@@ -148,6 +148,7 @@ class HomePage extends StatelessWidget {
           } else if (state is ErrorState) {
             return Center(child: Text(state.message));
           } else {
+            print(state);
             return const Center(child: Text('No products found.'));
           }
         },

@@ -33,8 +33,7 @@ class ECommerceBloc extends Bloc<ECommerceEvent, ECommerceState> {
   Future<void> _onGetSingleProduct(
       GetSingleProductEvent event, Emitter<ECommerceState> emit) async {
     emit(const LoadingState());
-    final either =
-        await productRepository.getProductById(event.productId);
+    final either = await productRepository.getProductById(event.productId);
     emit(either.fold(
       (failure) => ErrorState(failure.message),
       (product) => LoadedSingleProductState(product),
@@ -43,11 +42,11 @@ class ECommerceBloc extends Bloc<ECommerceEvent, ECommerceState> {
 
   Future<void> _onCreateProduct(
       CreatProductEvent event, Emitter<ECommerceState> emit) async {
-        
     emit(const LoadingState());
     final either =
         await productRepository.insertProduct(event.newProductDetails);
     print('Creating product: ${event.newProductDetails.name}');
+    print('================================================${either}');
     emit(either.fold(
       (failure) => ErrorState(failure.message),
       (createdProduct) => LoadedSingleProductState(createdProduct),
@@ -66,22 +65,29 @@ class ECommerceBloc extends Bloc<ECommerceEvent, ECommerceState> {
   }
 
   Future<void> _onDeleteProduct(
-      DeleteProductEvent event, Emitter<ECommerceState> emit) async {
+    DeleteProductEvent event,
+    Emitter<ECommerceState> emit,
+  ) async {
     emit(const LoadingState());
-    final either =
-        await productRepository.deleteProduct(event.productId);
-    either.fold(
-    (failure) => emit(ErrorState(failure.message)), 
-    (_) async {
-      
-      emit(const LoadingState());
-      final productsEither = await productRepository.getAllProduct(); 
-      
-     
-      emit(productsEither.fold(
-        (failure) => ErrorState(failure.message),
-        (products) => LoadedAllProductState(products),
-      ));
-  });
-}
+
+    final either = await productRepository.deleteProduct(event.productId);
+
+    await either.fold(
+      (failure) async {
+        if (!emit.isDone) emit(ErrorState(failure.message));
+      },
+      (_) async {
+        if (!emit.isDone) emit(const LoadingState());
+
+        final productsEither = await productRepository.getAllProduct();
+
+        if (!emit.isDone) {
+          emit(productsEither.fold(
+            (failure) => ErrorState(failure.message),
+            (products) => LoadedAllProductState(products),
+          ));
+        }
+      },
+    );
+  }
 }

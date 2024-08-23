@@ -7,7 +7,7 @@ import 'package:seting_up_linter_rule/feature/e_commerce_app/data/models/product
 import 'package:seting_up_linter_rule/feature/e_commerce_app/domain/entities/e_commerce.dart';
 import 'package:seting_up_linter_rule/feature/e_commerce_app/presentation/bloc/e_commerce_bloc.dart';
 
-import '../helpers/test_helper.mocks.dart';
+import '../../helpers/test_helper.mocks.dart';
 
 void main() {
   late ECommerceBloc ecommerceBloc;
@@ -157,12 +157,17 @@ void main() {
       build: () {
         when(mockECommerceRepository.deleteProduct(tProductId))
             .thenAnswer((_) async => Right(unit));
+
+         when(mockECommerceRepository.getAllProduct())
+        .thenAnswer((_) async => Right(tProductList));
+    
+    
         return ecommerceBloc;
       },
       act: (bloc) => bloc.add(DeleteProductEvent(tProductId.toString())),
       expect: () => [
         const LoadingState(),
-        EmptyState(),
+        LoadedAllProductState(tProductList),
       ],
     );
 

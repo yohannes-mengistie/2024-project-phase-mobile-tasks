@@ -48,6 +48,9 @@ dependencies:
   bloc_test: ^9.1.7
   get_it: ^7.7.0
   image_picker: ^1.1.2
+  mocktail: ^1.0.4
+  network_image_mock: ^2.1.1
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:

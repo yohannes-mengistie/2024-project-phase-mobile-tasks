@@ -36,12 +36,25 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
     }
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    
+          final product = widget.product;
+          _nameController.text = product.name;
+          _priceController.text = product.price.toString();
+          _descriptionController.text = product.description;
+          _image = File(product.imageUrl); // Load existing image
+          setState(() {});
+        }
+    
+
   Future<void> _updateProduct() async {
     final name = _nameController.text.trim();
 
     final price = double.tryParse(_priceController.text.trim());
     final description = _descriptionController.text.trim();
-    final image = _image ?? 'images/defaultImage.jpg';
+   
 
     if (name.isNotEmpty && price != null && description.isNotEmpty) {
       final updatedProduct = ProductModel(
@@ -49,14 +62,14 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
         name: name,
         price: price,
         description: description,
-        imageUrl: _image!.path,
+        imageUrl: _image?.path ?? 'images/defaultImage.jpg',
       );
 
       context.read<ECommerceBloc>().add(
           UpdateProductEvent(updatedProduct.id.toString(), updatedProduct));
 
       await Future.delayed(Duration(seconds: 1));
-      context.read<ECommerceBloc>().add(const LoadAllProductEvent());
+      context.read<ECommerceBloc>().add( GetSingleProductEvent(updatedProduct.id.toString()));
 
       Navigator.of(context).pop(updatedProduct);
     } else {
@@ -103,7 +116,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                         _imageBytes!,
                         fit: BoxFit.cover,
                       )
-                    : Column(
+                    : const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
@@ -138,7 +151,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                suffixIcon: Padding(
+                suffixIcon: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12),
                   child: Text('\$', style: TextStyle(fontSize: 18)),
                 ),
@@ -156,18 +169,20 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
               ),
             ),
             SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _updateProduct,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 79, 43, 240),
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 125),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+            Center(
+              child: ElevatedButton(
+                onPressed: _updateProduct,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 79, 43, 240),
+                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 125),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
-              ),
-              child: Text(
-                "UPDATE",
-                style: TextStyle(fontSize: 16, color: Colors.white),
+                child: const Text(
+                  "UPDATE",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
               ),
             ),
           ],
