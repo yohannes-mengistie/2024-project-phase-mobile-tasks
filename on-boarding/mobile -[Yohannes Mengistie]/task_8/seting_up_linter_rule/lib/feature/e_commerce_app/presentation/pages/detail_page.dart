@@ -27,7 +27,7 @@ class ProductDetailPage extends StatelessWidget {
               Stack(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(16),
                       bottomRight: Radius.circular(16),
                     ),
@@ -55,9 +55,9 @@ class ProductDetailPage extends StatelessWidget {
                         ],
                       ),
                       child: IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_back_ios,
-                          color: const Color.fromARGB(255, 79, 43, 240),
+                          color: Color.fromARGB(255, 79, 43, 240),
                         ),
                         onPressed: () {
                           context
@@ -78,17 +78,20 @@ class ProductDetailPage extends StatelessWidget {
                     SizedBox(height: 8),
                     Row(
                       children: [
-                        Text(
-                          product.name,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
+                        Flexible(
+                          child: Text(
+                            product.name,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ),
-                        Spacer(),
+                        const SizedBox(width: 10,),
                         Text(
                           "\$" + product.price.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
@@ -96,7 +99,7 @@ class ProductDetailPage extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 16),
-                    Text(
+                    const Text(
                       "Size:",
                       style: TextStyle(
                         fontSize: 18,
@@ -163,18 +166,18 @@ class ProductDetailPage extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             side: BorderSide(color: Colors.red),
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 16, horizontal: 32),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             "DELETE",
                             style: TextStyle(color: Colors.red, fontSize: 16),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 24,
                         ),
                         ElevatedButton(
@@ -189,13 +192,13 @@ class ProductDetailPage extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 const Color.fromARGB(255, 79, 43, 240),
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 16, horizontal: 32),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             "UPDATE",
                             style: TextStyle(color: Colors.white, fontSize: 16),
                           ),

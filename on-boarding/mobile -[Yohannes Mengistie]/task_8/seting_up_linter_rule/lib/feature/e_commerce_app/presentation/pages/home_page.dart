@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../domain/entities/e_commerce.dart';
+import '../../../authentication/data/model/user_model.dart';
+import '../../../authentication/presentation/bloc/authentication_bloc.dart';
+import '../../../authentication/presentation/pages/sign_in_page.dart';
 import '../bloc/e_commerce_bloc.dart';
 import '../widgets/home_page_card.dart';
 import 'create_page.dart';
-import 'detail_page.dart';
+
 import 'search_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -19,43 +21,98 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 194, 192, 192),
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'July 14, 2023',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-            RichText(
-              text: const TextSpan(
-                children: [
-                  TextSpan(
-                    text: "Hello, ",
-                    style: TextStyle(fontSize: 14, color: Colors.grey),
-                  ),
-                  TextSpan(
-                    text: "Yohannes",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  ),
-                ],
+        leading: PopupMenuButton<String>(
+          onSelected:(value){
+            switch(value){
+              case 'profile':
+                print('profile clicked');
+                break;
+
+              case 'settings':
+                print('setting clicked');
+                break;
+              
+              case 'LogOut':
+                (context).read<AuthenticationBloc>().add(LogOutEvent());
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>const SignInPage()));
+                break;
+
+            }
+          },
+
+          itemBuilder: (BuildContext context){
+            return [
+              const PopupMenuItem<String>(value: 'profile',child: Text(
+                'profile'
+              )),
+              const PopupMenuItem(value:'settings',child: Text(
+                'setting'
+              )),
+
+              const PopupMenuItem(value:'LogOut',child: Text(
+               'LogOut'
+              ))
+            ];
+          },
+            child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 194, 192, 192),
+                borderRadius: BorderRadius.circular(8),
               ),
             ),
-          ],
+          ),
+        
         ),
+        
+        title: Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    const Text(
+      'July 14, 2023',
+      style: TextStyle(fontSize: 14, color: Colors.grey),
+    ),
+    BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      builder: (context, state) {
+        if (state is AuthenticationAuthenticated) {
+          return RichText(
+            text: TextSpan(
+              children: [
+                const TextSpan(
+                  text: "Hello, ",
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                ),
+                TextSpan(
+                  text: state.user.name,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          );
+        } else if (state is AuthenticationLoading) {
+          return const CircularProgressIndicator();
+        } else if (state is AuthenticationError) {
+          return Text(
+            state.message,
+            style: const TextStyle(color: Colors.red),
+          );
+        } else {
+          return const Text(
+            "User not authenticated",
+            style: TextStyle(color: Colors.grey),
+          );
+        }
+      },
+    ),
+  ],
+),
         actions: <Widget>[
           Stack(
             children: [

@@ -94,22 +94,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       ]);
 
     
-    // request.fields.addAll({
-    //   'name': product.name,
-    //   'description': product.description,
-    //   'price': product.price.toString(),
-    // });
-
-    // print(
-    //     '================================================${product.imageUrl}');
-    // if (product.imageUrl.isNotEmpty) {
-    //   String imageType = ImageProvider(product.imageUrl);
-    //   request.files.add(await http.MultipartFile.fromPath(
-    //       'image', product.imageUrl,
-    //       contentType: MediaType('image', imageType)));
-    // }
-
-    // final response = await request.send();
+    
     print(response.statusCode);
 
     if (response.statusCode == 201) {
@@ -117,7 +102,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       print('\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\${responseBody}');
       final jsonMap = json.decode(response.body);
 
-      return ProductModel.fromJson(jsonMap);
+      return ProductModel.fromJson(jsonMap['data']);
     } else {
       throw ServerException(response.body);
     }
@@ -141,29 +126,5 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       throw ServerException(e.toString());
     }
   }
-  //   final productId = product.id;
-  //   final jsonBody = jsonEncode({
-  //     'name': product.name,
-  //     'description': product.description,
-  //     'price': product.price,
-  //   });
-
-  //   final url = Uri.parse(
-  //       '${'https://g5-flutter-learning-path-be.onrender.com/api/v1/products'}/$productId');
-  //   final response = await client.put(
-  //     url,
-  //     body: jsonBody,
-  //     headers: {'Content-Type': 'application/json'},
-  //   );
-
-  //   print('===========Status code: ${response.statusCode}');
-  //   print('Response body: ${response.body}');
-
-  //   if (response.statusCode == 200) {
-  //     return ProductModel.fromJson(json.decode(response.body)['data']);
-  //   } else {
-  //     throw ServerException(
-  //         'Failed to update product on server: ${response.reasonPhrase}');
-  //   }
-  // }
+ 
 }

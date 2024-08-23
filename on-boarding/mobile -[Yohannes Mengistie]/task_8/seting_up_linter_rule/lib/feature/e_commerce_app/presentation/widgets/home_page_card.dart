@@ -48,11 +48,15 @@ class HomeProductCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      data.name,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    Flexible(
+                      child: Text(
+                        data.name,
+                        style:
+                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
+                    const SizedBox(width: 10,),
                     Text(
                       reserve = "\$" + data.price.toString(),
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -60,13 +64,10 @@ class HomeProductCard extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 5),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Text(
-
-                    //   style: TextStyle(fontSize: 14, color: Colors.grey),
-                    // ),
+                    
                     Row(
                       children: [
                         Icon(Icons.star, color: Colors.yellow),

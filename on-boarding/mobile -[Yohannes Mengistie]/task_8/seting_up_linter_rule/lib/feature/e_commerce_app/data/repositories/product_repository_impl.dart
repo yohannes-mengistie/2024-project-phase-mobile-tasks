@@ -60,8 +60,9 @@ class ProductRepositoryImpl implements ECommerceRepository {
     if (await networkInfo.isConnected) {
       try {
         final insertedProduct = await remoteDataSource.insertProduct(product);
-        print(insertedProduct);
+        print('***********************************$insertedProduct');
         await localDataSource.cacheProduct(insertedProduct);
+        
         return Right(insertedProduct);
       
       } on ServerException {

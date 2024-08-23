@@ -26,18 +26,6 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       (UserModel) => AuthenticationAuthenticated(token: UserModel.token, user: user)
     ));
 
-    // try {
-    //   final user = UserModel(name: '', Email: event.emial, Password: event.password, id:'');
-    //   final loginResponse = await userRepository.logIn(
-    //     user
-    //   );
-      
-      
-      
-    //   emit(AuthenticationAuthenticated(user: user, token: user.token));
-    // } catch (e) {
-    //   emit(AuthenticationError(message: e.toString()));
-    // }
   }
 
 

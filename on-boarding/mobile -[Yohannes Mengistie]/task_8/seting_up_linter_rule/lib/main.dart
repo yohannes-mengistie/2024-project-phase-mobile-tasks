@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc_observer.dart';
 import 'feature/authentication/presentation/bloc/authentication_bloc.dart';
-import 'feature/authentication/presentation/pages/sign_in_page.dart';
-import 'feature/authentication/presentation/pages/sign_up_page.dart';
-import 'feature/authentication/presentation/pages/starting_page.dart';
-import 'feature/e_commerce_app/domain/repository/e_commerce_repository.dart';
+
+import 'feature/authentication/presentation/pages/splash_screen.dart';
+
 import 'feature/e_commerce_app/presentation/bloc/e_commerce_bloc.dart';
-import 'feature/e_commerce_app/presentation/pages/home_page.dart';
+
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -35,7 +34,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: const WelcomeScreen(),
+          home: const SplashScreen(),
         ));
   }
 }

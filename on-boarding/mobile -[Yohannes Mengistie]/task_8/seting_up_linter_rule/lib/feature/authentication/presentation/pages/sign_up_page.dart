@@ -1,9 +1,12 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../e_commerce_app/presentation/pages/home_page.dart';
 import '../bloc/authentication_bloc.dart';
 import '../../../e_commerce_app/presentation/bloc/e_commerce_bloc.dart';
+import 'sign_in_page.dart';
+import 'splash_screen.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -36,7 +39,8 @@ class _SignUpPageState extends State<SignUpPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.blue),
           onPressed: () {
-            Navigator.of(context).pop();
+            //Navigator.push(context, MaterialPageRoute(builder: (context)=>const SplashScreen()));
+            Navigator.pop(context);
           },
         ),
         actions: [
@@ -167,6 +171,27 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                   ),
                   const SizedBox(height: 20),
+                  const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Checkbox(
+                      value: false,
+                      onChanged: (value) {},
+                    ),
+                    const Text.rich(
+                      TextSpan(
+                        text: 'I understood the ',
+                        style: TextStyle(color: Colors.black),
+                        children: [
+                          TextSpan(
+                            text: 'terms & policy.',
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
                   SizedBox(
                     width: double.infinity,
                     height: 50,
@@ -195,16 +220,20 @@ class _SignUpPageState extends State<SignUpPage> {
                   const SizedBox(height: 100),
                   Center(
                     child: RichText(
-                      text: const TextSpan(
-                        text: "Don't have an account? ",
-                        style: TextStyle(color: Colors.black),
+                      text:  TextSpan(
+                        text: 'Have an account? ',
+                        style: const TextStyle(color: Colors.black),
                         children: [
                           TextSpan(
-                            text: 'SIGN UP',
-                            style: TextStyle(
+                            text: 'SIGN IN',
+                            style: const TextStyle(
                               color: Colors.blue,
                               fontWeight: FontWeight.bold,
                             ),
+                            recognizer: TapGestureRecognizer()
+                            ..onTap = (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>const SignInPage()));
+                            }
                           ),
                         ],
                       ),
